@@ -64,6 +64,7 @@ button:hover {
   border-width: 2px ;
   border-color: grey;
   text-align: left;
+  font-size: 12px;
 }
 
 #legend:hover {
@@ -91,6 +92,7 @@ button:hover {
   position: relative;
   top: 4px;
   margin-right: 5px;
+  font-size: 10px;
 }
 
 .vacant::before {

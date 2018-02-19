@@ -5,6 +5,9 @@ body{
   color: black;
   font-weight: 400;
 }
+h1{
+  font-size: 18px;
+}
 #my-map {
   position: absolute;
   top: 0;

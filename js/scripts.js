@@ -99,7 +99,7 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
   ).addTo(map);
 
 /// how to add a marker for each object in the array
-
+/*
 places.forEach(function(placeObject) {
   var latLon = [placeObject.lat, placeObject.lon];
 

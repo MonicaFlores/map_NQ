@@ -1,11 +1,12 @@
-var defaultCenter = [40.821016,-73.915280];
-var defaultZoom = 14;
+var defaultCenter = [40.818,-73.92];
+var defaultZoom = 13.5;
 
 
 var map = L.map('my-map').setView(defaultCenter, defaultZoom);
 
-L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	subdomains: 'abcd'
 }).addTo(map);
 
 //not working
@@ -23,19 +24,73 @@ L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/
 
   // Use L.geoJSON to load PLUTO parcel data that we clipped in QGIS and change the CRS from 2263 to 4326
   // this was moved inside the getJSON callback so that the parcels will load on top of the study area study_boundary
-  var blocksGeojson = L.geoJSON(land,
+
+//Add Vacant Land
+  var landGeojson = L.geoJSON(land,
     {
       style: function(feature) {
           return {
             color: 'white',
-            fillColor: 'red',
-            fillOpacity: 1,
+            fillColor: '#e80000',
+            fillOpacity: 0.6,
             weight: 1,
           }
+          onEachFeature: function(feature, layer) {
+
+                layer.bindPopup(`${feature.properties.Address}<br/>${feature.properties.}`, {
+                  closeButton: false,
+                  minWidth: 60,
+                  offset: [0, -10]
+                });
+                layer.on('mouseover', function (e) {
+                  this.openPopup();
+
+                  e.target.setStyle({
+                    weight: 3,
+                    color: '#FFF',
+                  });
+
+                  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                      layer.bringToFront();
+                  }
+                });
+                layer.on('mouseout', function (e) {
+                  this.closePopup();
+                  blocksGeojson.resetStyle(e.target);
+                });
+              }
+      },
+    }).addTo(map);
+
+//Add Gardens
+  var gardensGeojson = L.geoJSON(gardens,
+    {
+      style: function(feature) {
+          return {
+            color: 'white',
+            fillColor: '#157a03',
+            fillOpacity: 0.6,
+            weight: 1,
+          }
+
       },
     }
   ).addTo(map);
 
+//Add Community district boundaries
+  var CDsGeojson = L.geoJSON(CDs,
+    {
+      style: function(feature) {
+          return {
+            dashArray: '3 5',
+            color: 'grey',
+            fillColor: 'white',
+            fillOpacity: 0.1,
+            weight: 1.5,
+          }
+      },
+    }
+  ).addTo(map);
 
 /*// how to add a marker for each object in the array
 

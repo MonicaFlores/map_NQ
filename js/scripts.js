@@ -37,8 +37,8 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
           }
           onEachFeature: function(feature, layer) {
 
-                layer.bindPopup(`${feature.properties.Address}<br/>+"Owner:"+ ${feature.properties.OwnerName}<br/>
-                                +"Lot Area (sqft):"+ ${feature.properties.LotArea}`, {
+                layer.bindPopup(`${feature.properties.Address}`<br/>+'Owner:'+ `${feature.properties.OwnerName}`<br/>
+                                +'Lot Area (sqft):'+ `${feature.properties.LotArea}`, {
                   closeButton: false,
                   minWidth: 60,
                   offset: [0, -10]
@@ -62,6 +62,10 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
               }
       },
     }).addTo(map);
+
+			//Popup samples
+			//.bindPopup(placeObject.description1 + placeObject.placeName +  placeObject.description2);
+			// .bindPopup(pizzaObject.name + ' likes to eat at ' +  pizzaObject.pizzaShop, {offset: [0, -6]})
 
 //Add Gardens
   var gardensGeojson = L.geoJSON(gardens,
@@ -93,7 +97,7 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
     }
   ).addTo(map);
 
-/*// how to add a marker for each object in the array
+/// how to add a marker for each object in the array
 
 places.forEach(function(placeObject) {
   var latLon = [placeObject.lat, placeObject.lon];

@@ -88,22 +88,27 @@ button:hover {
   -moz-border-radius: 7.5px;
   -webkit-border-radius: 7.5px;
   border-radius: 16.5px;
-  border: 2px solid #FFF;
+
   position: relative;
   top: 4px;
   margin-right: 5px;
 }
 
-.night::before {
-  background-color: blue;
+.vacant::before {
+  background-color: #e80000;
 }
 
-.evening::before {
-  background-color: purple;
+.cgardens::before {
+  background-color: #157a03;
 }
 
-.morning::before {
-  background-color: yellow;
+.cds::before {
+  background-color: white;
+  opacity: 0.1;
+  border-style: dashed;
+  border-color: black;
+  border-width: 1px ;
+
 }
 
 /*Links*/

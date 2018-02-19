@@ -88,7 +88,6 @@ button:hover {
   -moz-border-radius: 7.5px;
   -webkit-border-radius: 7.5px;
   border-radius: 16.5px;
-
   position: relative;
   top: 4px;
   margin-right: 5px;
@@ -96,18 +95,20 @@ button:hover {
 
 .vacant::before {
   background-color: #e80000;
+  border-color: black;
 }
 
 .cgarden::before {
   background-color: #157a03;
+  border-color: black;
 }
 
 .cds::before {
   background-color: white;
-  opacity: 0.1;
+  fill-Opacity: 0.1;
   border-style: dashed;
   border-color: black;
-  border-width: 1px ;
+  border-width: 1.5px ;
 
 }
 

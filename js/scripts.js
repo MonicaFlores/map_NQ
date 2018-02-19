@@ -37,7 +37,7 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
           }
           onEachFeature: function(feature, layer) {
 
-                layer.bindPopup(`${feature.properties.Address}`<br/>+'Owner:'+ `${feature.properties.OwnerName}`<br/>
+                layer.bindPopup(`${feature.properties.Address}`<br/> +'Owner:'+ `${feature.properties.OwnerName}`<br/>
                                 +'Lot Area (sqft):'+ `${feature.properties.LotArea}`, {
                   closeButton: false,
                   minWidth: 60,

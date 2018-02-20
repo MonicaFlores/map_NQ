@@ -4,22 +4,18 @@ var defaultZoom = 13.5;
 
 var map = L.map('my-map').setView(defaultCenter, defaultZoom);
 
+/*var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20,
+	ext: 'png'
+}).addTo(map);*/
+
 var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 	subdomains: 'abcd'
 }).addTo(map);
-
-//not working
-// add geojson using jquery's $.getJSON()
-/*$.getJSON('data/Vacant_Land_not_garden.geojson', function(lots) {
-  L.geoJSON(lots, {
-    style: {
-      color: 'red',
-      fillOpacity: 1,
-    }
-  }).addTo(map);
-*/
-
 
 
   // Use L.geoJSON to load PLUTO parcel data that we clipped in QGIS and change the CRS from 2263 to 4326
@@ -30,9 +26,9 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
     {
       style: function(feature) {
           return {
-            color: 'white',
+            color: '#595959',
             fillColor: '#e80000',
-            fillOpacity: 0.6,
+            fillOpacity: 0.9,
             weight: 1,
           }
 //Popup not working
@@ -64,7 +60,7 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
               }*/
 
 //This popup doens't work either
-.bindPopup(feature.properties.Address+ ' Owner: ' +  feature.properties.OwnerName+ 'Lot Area (sqft):'+ feature.properties.LotArea, {offset: [0, -6]})
+//.bindPopup(feature.properties.Address+ ' Owner: ' +  feature.properties.OwnerName+ 'Lot Area (sqft):'+ feature.properties.LotArea, {offset: [0, -6]})
 			},
     }).addTo(map);
 
@@ -77,9 +73,9 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
     {
       style: function(feature) {
           return {
-            color: 'white',
+            color: '#595959',
             fillColor: '#157a03',
-            fillOpacity: 0.6,
+            fillOpacity: 0.8,
             weight: 1,
           }
 
@@ -92,42 +88,16 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
     {
       style: function(feature) {
           return {
-            dashArray: '3 5',
-            color: 'grey',
+            dashArray: '3 6',
+            color: '#595959',
             fillColor: 'white',
-            fillOpacity: 0.1,
+            fillOpacity: 0.25,
             weight: 1.5,
           }
       },
     }
   ).addTo(map);
 
-/// how to add a marker for each object in the array
-/*
-places.forEach(function(placeObject) {
-  var latLon = [placeObject.lat, placeObject.lon];
-
-  var hourColor = 'grey';
-
-  if (placeObject.hours === 'Night') hourColor = 'blue';
-  if (placeObject.hours === 'Evening') hourColor = 'purple';
-  if (placeObject.hours === 'Morning/Afternoon') hourColor = 'yellow';
-
-  var options = {
-    radius: 6,
-    opacity: 1,
-    fillColor: hourColor,
-    fillOpacity: 0.9,
-    color: 'grey',
-    weight: 2,
-  };
-
-  var marker = L.circleMarker(latLon, options).addTo(map)
-      .bindPopup(placeObject.description1 + placeObject.placeName +  placeObject.description2);
-      //circleMarker.dblclick(function() {
-      //map.flyTo(placeObject.latLon, closeZoom)
-      //});
-
-
+	$('.zoomOut').click(function() {
+  map.flyTo(defaultCenter, defaultZoom)
 });
-*/

@@ -7,6 +7,7 @@ body{
 }
 h1{
   font-size: 18px;
+  font-family: 'Roboto Mono', sans-serif;
 }
 #my-map {
   position: absolute;
@@ -55,7 +56,7 @@ button:hover {
 
 
 #legend {
-  width:120px;
+  width:150px;
   float: right;
   background: #e6e6e6;
   padding: 12px;

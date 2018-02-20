@@ -35,7 +35,9 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
             fillOpacity: 0.6,
             weight: 1,
           }
-          /*onEachFeature: function(feature, layer) {
+//Popup not working
+					/*
+					onEachFeature: function(feature, layer) {
 //+'Owner:'+ +'Lot Area (sqft):'+
                 layer.bindPopup(`${feature.properties.Address}<br/>  ${feature.properties.OwnerName}<br/>
                                 ${feature.properties.LotArea}`, {
@@ -60,6 +62,8 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
                   blocksGeojson.resetStyle(e.target);
                 });
               }*/
+
+//This popup doens't work either
 .bindPopup(feature.properties.Address+ ' Owner: ' +  feature.properties.OwnerName+ 'Lot Area (sqft):'+ feature.properties.LotArea, {offset: [0, -6]})
 			},
     }).addTo(map);

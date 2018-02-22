@@ -47,8 +47,14 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 	      }
 		},
 		onEachFeature: function(feature, layer) {
-	    layer.bindPopup(`<h3>Vacant Lot</h3> at ${feature.properties.Address}.<br/><h3>//</h3>Owner: ${feature.properties.OwnerName}.<br/>
-	                    Area:    ${feature.properties.LotArea} sqft.<br/> FAR:    ${feature.properties.ResidFAR} residential; ${feature.properties.CommFAR} commercial; ${feature.properties.FacilFAR}; facilities`, {
+	    layer.bindPopup(`<b style='font-size: 15px'; 'font-weight: 150%'; font-family: 'Roboto Mono', sans-serif; >Vacant Lot</b>
+													at ${feature.properties.Address}.<br/>
+											<b style='font-size: 120%'> //</b> <br/>
+											<b style='font-size: 120%'> Owner:</b> ${feature.properties.OwnerName}.<br/>
+	                    <b style='font-size: 120%'> Area:</b> ${feature.properties.LotArea} sqft.<br/>
+											<b style='font-size: 120%'> FAR:</b>  ${feature.properties.ResidFAR} residential;
+														${feature.properties.CommFAR} commercial;
+														${feature.properties.FacilFAR} facilities`, {
 	      closeButton: false,
 	      minWidth: 60,
 	      offset: [0, -10]
@@ -90,11 +96,17 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
           }
       },
 			onEachFeature: function(feature, layer) {
-				layer.bindPopup(`<h3>${feature.properties.Name}</h3>${feature.properties.Garden_dev} Community Garden at ${feature.properties.Address}.<br/><h3>//</h3>Owner: ${feature.properties.OwnerName}.<br/>
-												Area:    ${feature.properties.LotArea} sqft.<br/> FAR:    ${feature.properties.ResidFAR} residential; ${feature.properties.CommFAR} commercial; ${feature.properties.FacilFAR}; facilities`, {
+				layer.bindPopup(`<b style='font-size: 15px'; 'font-weight: 150%'; font-family: 'Roboto Mono', sans-serif; >${feature.properties.Name}</b> <br/>
+												${feature.properties.Garden_dev} Community Garden at ${feature.properties.Address}.<br/>
+													<b style='font-size: 120%'> //</b> <br/>
+													<b style='font-size: 120%'> Owner:</b> ${feature.properties.OwnerName}.<br/>
+			                    <b style='font-size: 120%'> Area:</b> ${feature.properties.LotArea} sqft.<br/>
+													<b style='font-size: 120%'> FAR:</b>  ${feature.properties.ResidFAR} residential;
+																${feature.properties.CommFAR} commercial;
+																${feature.properties.FacilFAR} facilities`, {
 					closeButton: false,
 					minWidth: 60,
-					offset: [0, -10]
+					offset: [0, -10],
 				});
 				layer.on('mouseover', function (e) {
 					this.openPopup();

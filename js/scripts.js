@@ -1,16 +1,7 @@
 var defaultCenter = [40.818,-73.92];
 var defaultZoom = 13.5;
 
-
 var map = L.map('my-map').setView(defaultCenter, defaultZoom);
-
-/*var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20,
-	ext: 'png'
-}).addTo(map);*/
 
 var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
@@ -18,6 +9,7 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 	minZoom: 0,
 	maxZoom: 17,
 }).addTo(map);
+
 
 //Add Community district boundaries
   var CDsGeojson = L.geoJSON(CDs,
@@ -34,8 +26,6 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
     }
   ).addTo(map);
 
-  // Use L.geoJSON to load PLUTO parcel data that we clipped in QGIS and change the CRS from 2263 to 4326
-  // this was moved inside the getJSON callback so that the parcels will load on top of the study area study_boundary
 //Add vacant land
 	var landGeojson = L.geoJSON(land, {
 	  style: function(feature) {
@@ -74,17 +64,13 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 	    });
 	    layer.on('mouseout', function (e) {
 	      this.closePopup();
-	      blocksGeojson.resetStyle(e.target);
+	      landGeojson.resetStyle(e.target);
 	    });
 		}
 	}).addTo(map);
 
-			//Popup samples
-			//.bindPopup(placeObject.description1 + placeObject.placeName +  placeObject.description2);
-			// .bindPopup(pizzaObject.name + ' likes to eat at ' +  pizzaObject.pizzaShop, {offset: [0, -6]})
 
 //Add Gardens
-//Garden_dev
   var gardensGeojson = L.geoJSON(gardens,
     {
       style: function(feature) {
@@ -132,3 +118,75 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 	$('.zoomOut').click(function() {
   map.flyTo(defaultCenter, defaultZoom)
 });
+
+var amenitiesArray = []  // empty array
+
+
+//Set places contents
+
+getPlaces((places) => {
+
+  places.forEach((place) => {
+
+		const typePalette = {
+      NQ_Partners: 'GoldenRod ',
+      Educational: 'DarkBlue',
+      Cultural: 'DarkSlateGray',
+      Health: 'Purple',
+    };
+
+		const placeColor = typePalette[place.type];
+
+
+		const circleOptions = {
+			color: 'grey',
+			weight: 0.5,
+			radius: 4,
+			fillOpacity: 1,
+			fillColor: placeColor,
+			width: 0
+		}
+
+
+
+
+    const latLon = [place.latitude, place.longitude];
+		amenitiesArray.push(
+		    L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
+
+
+
+
+
+  });
+
+	/**********************************************/
+	//attempt of creating a layer with amenities
+	//Not working (creates 4 layer objects in the map)
+
+	var amenities  = L.layerGroup(amenitiesArray)
+	var amenitiesLayer = {
+	    "Amenities": amenities
+	};
+	console.log('adding')
+	L.control.layers({}, amenitiesLayer).addTo(map);
+	//How to create a separate layer for each amenity type???
+	/**********************************************/
+
+});
+
+
+
+//Layers
+
+
+//Add amenities dataset
+function getPlaces(callback) {
+  $.ajax({
+    url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSQrzyc8AryRyxoI6Hzxc1NoYQiBLoKhhlGLqDuMrKP_BNp8TIXos-SbY39dlPn2f-6BwiU1cK5Dz_a/pub?output=csv",
+    type: "GET"
+  }).done((csv) => {
+    const places = Papa.parse(csv, {header: true}).data;
+    callback(places);
+  });
+}

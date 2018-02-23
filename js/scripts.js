@@ -119,10 +119,8 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
   map.flyTo(defaultCenter, defaultZoom)
 });
 
-var amenitiesArray = []  // empty array
-
-
 //Set places contents
+var amenitiesArray = []  // empty array
 
 getPlaces((places) => {
 
@@ -137,6 +135,7 @@ getPlaces((places) => {
 
 		const placeColor = typePalette[place.type];
 
+		const type = place.type;
 
 		const circleOptions = {
 			color: 'grey',
@@ -147,26 +146,20 @@ getPlaces((places) => {
 			width: 0
 		}
 
-
-
-
     const latLon = [place.latitude, place.longitude];
 		amenitiesArray.push(
 		    L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
 
-
-
-
-
   });
 
-	/**********************************************/
-	//attempt of creating a layer with amenities
-	//Not working (creates 4 layer objects in the map)
-
+	//Create layer with amenities
 	var amenities  = L.layerGroup(amenitiesArray)
 	var amenitiesLayer = {
-	    "Amenities": amenities
+//attempt to create sub-layers by amenities-type
+			"NQ partners": amenities.type.NQ_partners,
+			"Educational Institutions": amenities.type.Educational,
+			"Cultural Institutions": amenities.type.Cultural,
+			"Health Institutions": amenities.type.Health,
 	};
 	console.log('adding')
 	L.control.layers({}, amenitiesLayer).addTo(map);

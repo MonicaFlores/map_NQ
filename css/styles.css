@@ -1,20 +1,4 @@
-body{
-  font-family: 'Roboto Slab', sans-serif;
-  font-size: 15px;
-  text-align: center;
-  color: black;
-  font-weight: 400;
-}
-h1{
-  font-size: 15px;
-  font-family: 'Roboto Mono', sans-serif;
-  margin: 0;
-}
-h3{
-  font-size: 15px;
-  font-family: 'Roboto Mono', sans-serif;
-  margin: 0;
-}
+
 #my-map {
   position: absolute;
   top: 0;
@@ -22,6 +6,28 @@ h3{
   bottom: 0;
   left: 0;
 }
+
+.leaflet-control-layers-expanded {
+  /*content: "Key Stakeholders";*/
+  background: #FFF;
+  padding: 12px;
+  margin-left: 15px;
+  font-family: 'Roboto Mono', sans-serif;
+  border-radius:10px;
+  border-style: dashed;
+  border-width: 2px ;
+  border-color: black;
+  text-align: left;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.leaflet-popup-content-wrapper {
+    font-family: 'Roboto Slab', sans-serif;
+    border-color: black;
+    border-width: 2px ;
+}
+
 #title-box {
   width: 350px;
   position: absolute;
@@ -40,26 +46,6 @@ h3{
   border-color: black;
   text-align: left;
 }
-/*Should I remove this?*/
-h1, h3  {
-  margin: 0;
-}
-button {
-  outline: none;
-  padding: 6px;
-  border-style: solid;
-  border-width: 1px ;
-  border-color: black;
-  background-color: white;
-  border-radius: 15px;
-  font-family: 'Roboto Mono', sans-serif;
-}
-
-button:hover {
-    border-style: dashed;
-    border-width: 2px ;
-}
-
 
 #legend {
   width:150px;
@@ -83,10 +69,6 @@ button:hover {
     border-width: 2px ;
 }
 
-.leaflet-popup-content-wrapper .leaflet-popup-content {
-    font-family: 'Roboto Slab', sans-serif;
-}
-
 /*LEGEND*/
 .legendItem {
 }
@@ -104,6 +86,41 @@ button:hover {
   margin-right: 5px;
   font-size: 10px;
 }
+
+body{
+  font-family: 'Roboto Slab', sans-serif;
+  font-size: 15px;
+  text-align: center;
+  color: black;
+  font-weight: 400;
+}
+h1{
+  font-size: 15px;
+  font-family: 'Roboto Mono', sans-serif;
+  margin: 0;
+}
+h3{
+  font-size: 15px;
+  font-family: 'Roboto Mono', sans-serif;
+  margin: 0;
+}
+button {
+  outline: none;
+  padding: 6px;
+  border-style: solid;
+  border-width: 1px ;
+  border-color: black;
+  background-color: white;
+  border-radius: 15px;
+  font-family: 'Roboto Mono', sans-serif;
+}
+
+button:hover {
+    border-style: dashed;
+    border-width: 2px ;
+}
+
+
 
 .vacant::before {
   background-color: #e80000;
@@ -147,22 +164,16 @@ a:active {
     color: white;
     font-weight: 200;
     }
-/*hover header*/
+/*hover header
 #header:hover {
     color:white;
     border-color: white;
     background-color: #c4c4d4;
     opacity: 0.8;
-}
+}*/
 
 .circleMarker:hover{
   border-style: dashed;
   border-color: black;
   border-width: 2px ;
-}
-/*not working*/
-.leaflet-Popup-content-wrapper {
-  border: 2px solid;
-  border-color: black;
-  border-radius: 8px;
 }

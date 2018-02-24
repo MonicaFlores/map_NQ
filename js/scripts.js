@@ -150,42 +150,39 @@ getPlaces((places) => {
 		}
 
     const latLon = [place.latitude, place.longitude];
-		const popupcont = ['<h3> ' + place.name  + '</h3>' + place.description]
+		//const popupcont = ['<h3> ' + place.name  + '</h3>' + place.description]
 
-function pushing() {
+
 if (type == 'NQ_Partners') {
+		//Test defining partnersArray within the if statemnt
+		//Doesn't recognize the array afterwards when defining layergroups
+		//var partnersArray = [];  // empty array
 		partnersArray.push(
-		    L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
+		    L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
 
 } else if (type == 'Educational') {
+	//var educationalArray = [];
 	 	educationalArray.push(
-				L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
+				L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
 
 } else if (type == 'Cultural') {
+	//var culturalArray = [];  // empty array
 		culturalArray.push(
-				L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
+				L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
 
 } else {
+	//var heathArray = [];  // empty array
 		heathArray.push(
-				L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
-}}
-
-pushing().addTo(map);
+				L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
+}
 
   });
 
-
-	var partnersArray = []  // empty array
-	var educationalArray = []  // empty array
-	var culturalArray = []  // empty array
-	var heathArray = []  // empty array
-
 	//Create layer with amenities
 	var partners  = L.layerGroup(partnersArray)
-		var educational  = L.layerGroup(educationalArray)
-			var cultural  = L.layerGroup(culturalArray)
-				var health  = L.layerGroup(heathArray)
-
+	var educational  = L.layerGroup(educationalArray)
+	var cultural  = L.layerGroup(culturalArray)
+	var health  = L.layerGroup(heathArray)
 
 	var amenitiesLayer = {
 //attempt to create sub-layers by amenities-type
@@ -195,17 +192,9 @@ pushing().addTo(map);
 			"Health Institutions": health,
 	};
 
-	console.log('adding')
-	L.control.layers({}, amenitiesLayer).addTo(map);
-	//How to create a separate layer for each amenity type???
-	/**********************************************/
-
+	//L.control.layers({}, amenitiesLayer).addTo(map);
+L.control.layers(null, amenitiesLayer, {collapsed:false, position: 'topright'}).addTo(map);
 });
-
-
-
-//Layers
-
 
 //Add amenities dataset
 function getPlaces(callback) {

@@ -109,7 +109,7 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 				});
 				layer.on('mouseout', function (e) {
 					this.closePopup();
-					blocksGeojson.resetStyle(e.target);
+					gardensGeojson.resetStyle(e.target);
 				});
     }
   }).addTo(map);
@@ -120,7 +120,10 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 });
 
 //Set places contents
-var amenitiesArray = []  // empty array
+var partnersArray = []  // empty array
+var educationalArray = []  // empty array
+var culturalArray = []  // empty array
+var heathArray = []  // empty array
 
 getPlaces((places) => {
 
@@ -147,20 +150,51 @@ getPlaces((places) => {
 		}
 
     const latLon = [place.latitude, place.longitude];
-		amenitiesArray.push(
-		    L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
+		const popupcont = ['<h3> ' + place.name  + '</h3>' + place.description]
+
+function pushing() {
+if (type == 'NQ_Partners') {
+		partnersArray.push(
+		    L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
+
+} else if (type == 'Educational') {
+	 	educationalArray.push(
+				L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
+
+} else if (type == 'Cultural') {
+		culturalArray.push(
+				L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
+
+} else {
+		heathArray.push(
+				L.circleMarker(latLon, circleOptions).bindPopup(popupcont));
+}}
+
+pushing().addTo(map);
 
   });
 
+
+	var partnersArray = []  // empty array
+	var educationalArray = []  // empty array
+	var culturalArray = []  // empty array
+	var heathArray = []  // empty array
+
 	//Create layer with amenities
-	var amenities  = L.layerGroup(amenitiesArray)
+	var partners  = L.layerGroup(partnersArray)
+		var educational  = L.layerGroup(educationalArray)
+			var cultural  = L.layerGroup(culturalArray)
+				var health  = L.layerGroup(heathArray)
+
+
 	var amenitiesLayer = {
 //attempt to create sub-layers by amenities-type
-			"NQ partners": amenities.type.NQ_partners,
-			"Educational Institutions": amenities.type.Educational,
-			"Cultural Institutions": amenities.type.Cultural,
-			"Health Institutions": amenities.type.Health,
+			"NQ partners": partners,
+			"Educational Institutions": educational,
+			"Cultural Institutions": cultural,
+			"Health Institutions": health,
 	};
+
 	console.log('adding')
 	L.control.layers({}, amenitiesLayer).addTo(map);
 	//How to create a separate layer for each amenity type???

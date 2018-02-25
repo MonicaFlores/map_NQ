@@ -10,7 +10,6 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 	maxZoom: 17,
 }).addTo(map);
 
-
 //Add Community district boundaries
   var CDsGeojson = L.geoJSON(CDs,
     {
@@ -20,11 +19,9 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
             color: '#595959',
             fillColor: 'white',
             fillOpacity: 0.25,
-            weight: 1.5,
-          }
+            weight: 1.5,}
       },
-    }
-  ).addTo(map);
+    }).addTo(map);
 
 //Add vacant land
 	var landGeojson = L.geoJSON(land, {
@@ -33,15 +30,17 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
 	        color: '#595959',
 	        fillColor: '#e80000',
 	        fillOpacity: 0.9,
-	        weight: 1,
-	      }
+	        weight: 1,}
 		},
 		onEachFeature: function(feature, layer) {
+			//Format area
+			var areasqft = numeral(feature.properties.LotArea).format('0,0')
+
 	    layer.bindPopup(`<b style='font-size: 15px'; 'font-weight: 150%'; font-family: 'Roboto Mono', sans-serif; >Vacant Lot</b>
 													at ${feature.properties.Address}.<br/>
 											<b style='font-size: 120%'> //</b> <br/>
 											<b style='font-size: 120%'> Owner:</b> ${feature.properties.OwnerName}.<br/>
-	                    <b style='font-size: 120%'> Area:</b> ${feature.properties.LotArea} sqft.<br/>
+	                    <b style='font-size: 120%'> Area:</b> ${areasqft} sqft.<br/>
 											<b style='font-size: 120%'> FAR:</b>  ${feature.properties.ResidFAR} residential;
 														${feature.properties.CommFAR} commercial;
 														${feature.properties.FacilFAR} facilities`, {
@@ -82,11 +81,14 @@ var CartoDB_Positron = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fast
           }
       },
 			onEachFeature: function(feature, layer) {
+				//Format area
+				var areasqft = numeral(feature.properties.LotArea).format('0,0')
+
 				layer.bindPopup(`<b style='font-size: 15px'; 'font-weight: 150%'; font-family: 'Roboto Mono', sans-serif; >${feature.properties.Name}</b> <br/>
 												${feature.properties.Garden_dev} Community Garden at ${feature.properties.Address}.<br/>
 													<b style='font-size: 120%'> //</b> <br/>
 													<b style='font-size: 120%'> Owner:</b> ${feature.properties.OwnerName}.<br/>
-			                    <b style='font-size: 120%'> Area:</b> ${feature.properties.LotArea} sqft.<br/>
+			                    <b style='font-size: 120%'> Area:</b> ${areasqft} sqft.<br/>
 													<b style='font-size: 120%'> FAR:</b>  ${feature.properties.ResidFAR} residential;
 																${feature.properties.CommFAR} commercial;
 																${feature.properties.FacilFAR} facilities`, {
@@ -154,24 +156,16 @@ getPlaces((places) => {
 
 
 if (type == 'NQ_Partners') {
-		//Test defining partnersArray within the if statemnt
-		//Doesn't recognize the array afterwards when defining layergroups
-		//var partnersArray = [];  // empty array
 		partnersArray.push(
 		    L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
-
 } else if (type == 'Educational') {
-	//var educationalArray = [];
 	 	educationalArray.push(
 				L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
 
 } else if (type == 'Cultural') {
-	//var culturalArray = [];  // empty array
 		culturalArray.push(
 				L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
-
 } else {
-	//var heathArray = [];  // empty array
 		heathArray.push(
 				L.circleMarker(latLon, circleOptions).bindPopup('<h3> ' + place.name  + '</h3>' + place.description));
 }
@@ -186,7 +180,7 @@ if (type == 'NQ_Partners') {
 
 	var amenitiesLayer = {
 //attempt to create sub-layers by amenities-type
-			"NQ partners": partners,
+			"NQ Partners": partners,
 			"Educational Institutions": educational,
 			"Cultural Institutions": cultural,
 			"Health Institutions": health,
